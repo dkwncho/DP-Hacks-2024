@@ -2,6 +2,7 @@ import os
 import psycopg2
 import rapidjson
 from flask import Flask, request, Response
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -17,6 +18,7 @@ INSERT_USER_USERS = (
 
 app = Flask(__name__)
 
+CORS(app,origins=["https://pennpals.vercel.app"])
 
 def connect_to_db():
     connection = psycopg2.connect(DATABASE_URL)
