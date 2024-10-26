@@ -2,9 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import heroImage from "./assets/penn-campus.jpeg";
+import { initializeApp } from 'firebase/app';
 
 import { useState, useEffect } from "react";
 import CreateAccount from "./pages/CreateAccount";
+
 
 function LandingPage() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -101,7 +103,7 @@ function LandingPage() {
             >
               Your bridge to valuable advice and meaningful connections
             </motion.p>
-            <Link to="/signup">
+            <Link to="/create-account">
               <motion.button
                 className="bg-indigo-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-indigo-700 transition-colors inline-block"
                 whileHover={{ scale: 1.05 }}

@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { CiMail } from "react-icons/ci";
+
 
 
 export default function CreateAccount() {
@@ -10,7 +12,9 @@ export default function CreateAccount() {
   const [name, setName] = useState("");
   const [major, setMajor] = useState("");
   const [year, setYear] = useState("");
-  const [contact, setContact] = useState(null);
+  const [email, setEmail] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [number, setNumber] = useState("");
   const [advicePreference, setAdvicePreference] = useState(null);
   const [intersts, setInterests] = useState(null);
   const [career, setCareer] = useState(null);
@@ -55,12 +59,12 @@ export default function CreateAccount() {
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               />
-            <button
-              class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (name ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ") }
+              <button
+                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (name ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
                 type="submit"
               >
                 Next
-            </button>
+              </button>
             </form>
           </div>
         </div>
@@ -82,12 +86,12 @@ export default function CreateAccount() {
                 onChange={(e) => setMajor(e.target.value)}
                 value={major}
               />
-            <button
-              class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ") }
+              <button
+                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
                 type="submit"
               >
                 Next
-            </button>
+              </button>
             </form>
           </div>
         </div>
@@ -134,11 +138,11 @@ export default function CreateAccount() {
               </div>
             </div>
             <button
-              class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (year ? " " : "opacity-0 ") + (advicePreference && year ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ") }
-                type="submit"
-                onClick={(e) => {if (advicePreference) next(e)}}
-              >
-                Next
+              class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (year ? " " : "opacity-0 ") + (advicePreference && year ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
+              type="submit"
+              onClick={(e) => { if (advicePreference) next(e) }}
+            >
+              Next
             </button>
           </div>
         </div>
@@ -164,12 +168,12 @@ export default function CreateAccount() {
                 onChange={(e) => setCareer(e.target.value)}
                 value={intersts}
               />
-            <button
-              class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (career ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ") }
+              <button
+                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (career ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
                 type="submit"
               >
                 Next
-            </button>
+              </button>
             </form>
           </div>
         </div>
@@ -195,24 +199,85 @@ export default function CreateAccount() {
                 onChange={(e) => setInterests(e.target.value)}
                 value={intersts}
               />
-            <button
-              class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ") }
+              <button
+                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
                 type="submit"
               >
                 Next
-            </button>
+              </button>
             </form>
           </div>
         </div>
+        <div>
+          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto gap-7">
+            <p className="self-start text-xl">How can people contact you?</p>
+            <form onSubmit={(e) => { if (email) next(e) }} className="items-center gap-5 w-full">
+              <div className="flex flex-col gap-5 w-full">
+                <div className="flex gap-5 items-center">
+                <CiMail color="purple" size={32} />
+                  <input
+                    placeholder="example@seas.upenn.edu"
+                    style={{
+                      borderBottom: "solid 2px",
+                      borderImageSlice: "1",
+                      borderImageSource: "linear-gradient(to left, #B37BD5, #823FAA)",
+                      flexGrow: 1,
+                      fontSize: 20,
+                      padding: "10px 15px",
+                      width: "70%",
+                    }}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                </div>
+                <button
+                class={"mt-10 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (email ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
+                type="submit"
+              >
+                Next
+              </button>
+                {/* <input
+                  placeholder="@your-instagram"
+                  style={{
+                    borderBottom: "solid 2px",
+                    borderImageSlice: "1",
+                    borderImageSource: "linear-gradient(to left, #B37BD5, #823FAA)",
+                    flexGrow: 1,
+                    fontSize: 20,
+                    padding: "10px 15px",
+                    width: "70%",
+                  }}
+                  onChange={(e) => setInstagram(e.target.value)}
+                  value={instagram}
+                />
+                <input
+                  placeholder="(123) 456-7890"
+                  style={{
+                    borderBottom: "solid 2px",
+                    borderImageSlice: "1",
+                    borderImageSource: "linear-gradient(to left, #B37BD5, #823FAA)",
+                    flexGrow: 1,
+                    fontSize: 20,
+                    padding: "10px 15px",
+                    width: "70%",
+                  }}
+                  onChange={(e) => setNumber(e.target.value)}
+                  value={number}
+                /> */}
+              </div>
+            </form>
+          </div>
+        </div>
+
         <div>
           <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto">
             <div className="text-[3em] font-bold">All done!</div>
             <div className="text-[1.5em] mt-3">Your PennPals journey begins now...</div>
             <button
-              class={"mt-[3rem] text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ") }
-                type="submit"
-              >
-                Home
+              class={"mt-[3rem] text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
+              type="submit"
+            >
+              Home
             </button>
           </div>
         </div>
