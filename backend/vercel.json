@@ -10,14 +10,5 @@
             "source": "/(.*)",
             "destination": "app.py"
         }
-    ],
-    "headers": [
-        {
-            "source": "/api/(.*)",
-            "headers": [
-                { "key": "Access-Control-Allow-Origin", "value": "https://pennpals.vercel.app" },
-                { "key": "Access-Control-Allow-Methods", "value": "GET, POST" }
-            ]
-        }
     ]
 }
