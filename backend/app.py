@@ -4,21 +4,21 @@ import rapidjson
 from flask import Flask, request, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
-
+from model import generate_top_matches
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 CREATE_USERS_TABLE = (
-    "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, major TEXT, grade TEXT, personal_interests TEXT, career_interests TEXT, advice_types JSONB, description TEXT);"
+    "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, major TEXT, grade TEXT, personal_interests TEXT, career_interests TEXT, advice_types JSONB, receive_advice BOOLEAN DEFAULT FALSE, give_advice BOOLEAN DEFAULT FALSE, description TEXT);"
 )
 
 INSERT_USER_USERS = (
-    "INSERT INTO users (first_name, last_name, email, major, grade, personal_interests, career_interests, advice_types, description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
+    "INSERT INTO users (first_name, last_name, email, major, grade, personal_interests, career_interests, advice_types, receive_advice, give_advice,description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
 )
 
 app = Flask(__name__)
 
-CORS(app,origins=["https://pennpals.vercel.app"])
+CORS(app,origins=["https://pennpals.vercel.app","https://pennpals-api.vercel.app/"])
 
 def connect_to_db():
     connection = psycopg2.connect(DATABASE_URL)
@@ -37,12 +37,14 @@ def add_user_data():
     personal_interests = data["personal_interests"]
     career_interests = data["career_interests"]
     advice_types = rapidjson.dumps(data["advice_types"])
+    receive_advice = data["receive_advice"]
+    give_advice = data["give_advice"]
     description = data["description"]
     
     with connection:
         with connection.cursor() as cursor:
             cursor.execute(CREATE_USERS_TABLE)
-            cursor.execute(INSERT_USER_USERS, (first_name, last_name, email, major, grade, personal_interests, career_interests, advice_types, description))
+            cursor.execute(INSERT_USER_USERS, (first_name, last_name, email, major, grade, personal_interests, career_interests, advice_types, receive_advice, give_advice, description))
     cursor.close()
     connection.close()
     return Response("User added successfully", status=200)
@@ -69,7 +71,9 @@ def get_all_user_data():
             "personal_interest": row[6],
             "career_interest": row[7],
             "advice_types": row[8],
-            "description": row[9]
+            "receive_advice": row[9],
+            "give_advice": row[10],
+            "description": row[11]
         })
 
     cursor.close()
@@ -96,7 +100,9 @@ def get_user_by_id(user_id):
             "personal_interest": row[6],
             "career_interest": row[7],
             "advice_types": row[8],
-            "description": row[9]
+            "receive_advice": row[9],
+            "give_advice": row[10],
+            "description": row[11]
         })
     else:
         return Response("User not found", status=404)
@@ -126,17 +132,24 @@ def match_question_to_description(): # Frontend interacts with this api by posti
             "personal_interest": row[6],
             "career_interest": row[7],
             "advice_types": row[8],
-            "description": row[9]
+            "receive_advice": row[9],
+            "give_advice": row[10],
+            "description": row[11]
         })
     
     descriptions = []
-    for user in user_list:
+    original_indices = []
+    for index, user in enumerate(user_list):
         descriptions.append(user["description"])
+        original_indices.append(index)
     
-    # TODO: Call the matching algorithm based on the question and calculate scores for all user_descriptions
-    # Return the 3 users with the highest scores
+    top_matches_indices = generate_top_matches(question, descriptions)
+    top_matches = []
 
-    cursor.close()
+    for i in top_matches_indices:
+        top_matches.append(user_list[original_indices[i]])
+
+    return rapidjson.dumps(top_matches)
 
 if __name__ == "__main__":
     app.run()
