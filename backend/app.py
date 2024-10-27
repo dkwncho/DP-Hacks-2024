@@ -4,7 +4,7 @@ import rapidjson
 from flask import Flask, request, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
-from tf_idf import generate_top_matches
+from model import generate_top_matches
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -18,7 +18,6 @@ INSERT_USER_USERS = (
 
 app = Flask(__name__)
 CORS(app) 
-# CORS(app,origins=["https://pennpals.vercel.app","https://pennpals-api.vercel.app/","http://localhost:3001"])
 
 def connect_to_db():
     connection = psycopg2.connect(DATABASE_URL)
