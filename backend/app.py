@@ -41,7 +41,7 @@ def add_user_data():
     with connection:
         with connection.cursor() as cursor:
             cursor.execute(CREATE_USERS_TABLE)
-            cursor.execute(INSERT_USER_USERS, (first_name, last_name, email, major, grade, personal_interests, career_interests, receive_advice, give_advice, description))
+            cursor.execute(INSERT_USER_USERS, (first_name, last_name, email, major, grade, receive_advice, give_advice, description))
     cursor.close()
     connection.close()
     return Response("User added successfully", status=200)
