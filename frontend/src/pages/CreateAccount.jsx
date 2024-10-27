@@ -236,34 +236,6 @@ export default function CreateAccount() {
               >
                 Next
               </button>
-                {/* <input
-                  placeholder="@your-instagram"
-                  style={{
-                    borderBottom: "solid 2px",
-                    borderImageSlice: "1",
-                    borderImageSource: "linear-gradient(to left, #B37BD5, #823FAA)",
-                    flexGrow: 1,
-                    fontSize: 20,
-                    padding: "10px 15px",
-                    width: "70%",
-                  }}
-                  onChange={(e) => setInstagram(e.target.value)}
-                  value={instagram}
-                />
-                <input
-                  placeholder="(123) 456-7890"
-                  style={{
-                    borderBottom: "solid 2px",
-                    borderImageSlice: "1",
-                    borderImageSource: "linear-gradient(to left, #B37BD5, #823FAA)",
-                    flexGrow: 1,
-                    fontSize: 20,
-                    padding: "10px 15px",
-                    width: "70%",
-                  }}
-                  onChange={(e) => setNumber(e.target.value)}
-                  value={number}
-                /> */}
               </div>
             </form>
           </div>
@@ -274,11 +246,9 @@ export default function CreateAccount() {
             <div className="text-[3em] font-bold">All done!</div>
             <div className="text-[1.5em] mt-3">Your PennPals journey begins now...</div>
             <button
-              class={"mt-[3rem] text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
+              class={"mt-[3rem] text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 text-center flex justify-center items-center " + (true ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
               type="submit"
-            >
-              Home
-            </button>
+            >Home</button>
           </div>
         </div>
       </Slider>
