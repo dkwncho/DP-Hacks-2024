@@ -92,7 +92,7 @@ export default function Dashboard() {
 
           {
             adviceType === "get" ?
-              !currentQuestion
+              currentQuestion
                 ? <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <motion.div
                     className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
