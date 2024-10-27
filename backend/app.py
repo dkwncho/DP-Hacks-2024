@@ -17,10 +17,10 @@ INSERT_USER_USERS = (
 )
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # CORS(app,origins=["https://pennpals.vercel.app","https://pennpals-api.vercel.app/"])
-CORS(app)
-
+CORS(app, resources={r"/*": {"origins": "*"}}) 
 
 def connect_to_db():
     connection = psycopg2.connect(DATABASE_URL)
