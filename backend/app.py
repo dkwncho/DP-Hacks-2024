@@ -5,6 +5,7 @@ from flask import Flask, request, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
 from model import generate_top_matches
+
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -20,7 +21,6 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 CORS(app)
-
 
 def connect_to_db():
     connection = psycopg2.connect(DATABASE_URL)

@@ -15,15 +15,19 @@ export default function Dashboard() {
 
   const [name, setName] = useState();
   const [currentQuestion, setCurrentQuestion] = useState();
-  const [match, setMatch] = useState();
+  const [matchName, setMatchName] = useState();
+  const [matchEmail, setMatchEmail] = useState();
   const [adviceType, setAdviceType] = useState();
 
   get(child(dbRef, `users/${userid}`)).then((snapshot) => {
     if (snapshot.exists()) {
       let stuff = snapshot.val();
-      setName(stuff?.name);
+      setMatchName(stuff?.partnerName);
+      setMatchEmail(stuff?.partnerEmail);
+
+
+      setName(stuff?.name)
       setCurrentQuestion(stuff?.question);
-      setMatch(stuff?.match);
       setAdviceType(stuff?.advicePreference)
 
       console.log(snapshot.val());
@@ -112,15 +116,11 @@ export default function Dashboard() {
                     <div className="text-gray-700">
                       <p>
                         <span className="font-semibold">Name:</span>{" "}
-                        {userData.currentMatch.name}
+                        {matchName}
                       </p>
                       <p>
-                        <span className="font-semibold">Major:</span>{" "}
-                        {userData.currentMatch.major}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Year:</span>{" "}
-                        {userData.currentMatch.year}
+                        <span className="font-semibold">Contact:</span>{" "}
+                        {matchEmail}
                       </p>
                     </div>
                   </motion.div>
@@ -142,7 +142,7 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-              : currentQuestion
+              : matchName
                 ? <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <motion.div
                   className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
@@ -150,36 +150,35 @@ export default function Dashboard() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                  <h3 className="text-2xl font-semibold mb-4 text-indigo-600">
+                <h3 className="text-2xl font-semibold mb-4 text-indigo-600">Time to shine!</h3>
+                  <p className="text-gray-700">Get ready to meet up for your meal swipe!</p>
+                  {/* <h3 className="text-2xl font-semibold mb-4 text-indigo-600">
                     Current Question
-                  </h3>
-                  <p className="text-gray-700">{currentQuestion}</p>
+                  </h3> */}
+                  {/* <p className="text-gray-700">{currentQuestion}</p> */}
+
                 </motion.div>
 
                 <motion.div
-                  className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <h3 className="text-2xl font-semibold mb-4 text-indigo-600">
-                    Current Match
-                  </h3>
-                  <div className="text-gray-700">
-                    <p>
-                      <span className="font-semibold">Name:</span>{" "}
-                      {userData.currentMatch.name}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Major:</span>{" "}
-                      {userData.currentMatch.major}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Year:</span>{" "}
-                      {userData.currentMatch.year}
-                    </p>
-                  </div>
-                </motion.div>
+                    className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <h3 className="text-2xl font-semibold mb-4 text-indigo-600">
+                      Current Match
+                    </h3>
+                    <div className="text-gray-700">
+                      <p>
+                        <span className="font-semibold">Name:</span>{" "}
+                        {matchName}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Contact:</span>{" "}
+                        {matchEmail}
+                      </p>
+                    </div>
+                  </motion.div>
               </div>
                 : <div>
                   <div className="grid grid-cols-1 gap-8">
