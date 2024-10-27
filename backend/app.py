@@ -9,11 +9,11 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 CREATE_USERS_TABLE = (
-    "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, major TEXT, grade TEXT, personal_interests TEXT, career_interests TEXT, advice_types JSONB, receive_advice BOOLEAN DEFAULT FALSE, give_advice BOOLEAN DEFAULT FALSE, description TEXT);"
+    "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, major TEXT, grade TEXT, receive_advice BOOLEAN DEFAULT FALSE, give_advice BOOLEAN DEFAULT FALSE, description TEXT);"
 )
 
 INSERT_USER_USERS = (
-    "INSERT INTO users (first_name, last_name, email, major, grade, personal_interests, career_interests, advice_types, receive_advice, give_advice,description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
+    "INSERT INTO users (first_name, last_name, email, major, grade, receive_advice, give_advice,description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
 )
 
 app = Flask(__name__)
@@ -34,9 +34,6 @@ def add_user_data():
     email = data["email"]
     major = data["major"]
     grade = data["grade"]
-    personal_interests = data["personal_interests"]
-    career_interests = data["career_interests"]
-    advice_types = rapidjson.dumps(data["advice_types"])
     receive_advice = data["receive_advice"]
     give_advice = data["give_advice"]
     description = data["description"]
@@ -44,7 +41,7 @@ def add_user_data():
     with connection:
         with connection.cursor() as cursor:
             cursor.execute(CREATE_USERS_TABLE)
-            cursor.execute(INSERT_USER_USERS, (first_name, last_name, email, major, grade, personal_interests, career_interests, advice_types, receive_advice, give_advice, description))
+            cursor.execute(INSERT_USER_USERS, (first_name, last_name, email, major, grade, personal_interests, career_interests, receive_advice, give_advice, description))
     cursor.close()
     connection.close()
     return Response("User added successfully", status=200)
@@ -68,12 +65,9 @@ def get_all_user_data():
             "email": row[3],
             "major": row[4],
             "grade": row[5],
-            "personal_interest": row[6],
-            "career_interest": row[7],
-            "advice_types": row[8],
-            "receive_advice": row[9],
-            "give_advice": row[10],
-            "description": row[11]
+            "receive_advice": row[6],
+            "give_advice": row[7],
+            "description": row[8]
         })
 
     cursor.close()
@@ -97,12 +91,9 @@ def get_user_by_id(user_id):
             "email": row[3],
             "major": row[4],
             "grade": row[5],
-            "personal_interest": row[6],
-            "career_interest": row[7],
-            "advice_types": row[8],
-            "receive_advice": row[9],
-            "give_advice": row[10],
-            "description": row[11]
+            "receive_advice": row[6],
+            "give_advice": row[7],
+            "description": row[8]
         })
     else:
         return Response("User not found", status=404)
@@ -129,12 +120,9 @@ def match_question_to_description(): # Frontend interacts with this api by posti
             "email": row[3],
             "major": row[4],
             "grade": row[5],
-            "personal_interest": row[6],
-            "career_interest": row[7],
-            "advice_types": row[8],
-            "receive_advice": row[9],
-            "give_advice": row[10],
-            "description": row[11]
+            "receive_advice": row[6],
+            "give_advice": row[7],
+            "description": row[8]
         })
     
     descriptions = []
