@@ -3,7 +3,7 @@ import numpy as np
 import requests
 
 def generate_top_matches(question, descriptions):
-    model = SentenceTransformer('./sentence-embedding-model')
+    model = SentenceTransformer('all-MiniLM-L6-v2')
 
     question_embeddings = model.encode(question)
     description_embeddings = model.encode(descriptions)
