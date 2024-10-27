@@ -58,7 +58,7 @@ export default function CreateAccount() {
           description: interests,
           receive_advice: JSON.stringify(advicePreference === "get"),
           give_advice: JSON.stringify(advicePreference === "give")
-        },config).then((response) => {
+        }).then((response) => {
           console.log(response.data)
         }).catch((error) => {console.log(error.response.data)})
 
