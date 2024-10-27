@@ -17,7 +17,7 @@ export default function GetMatches() {
         })
 
     function choosePerson(i) {
-        let person = data[i];
+        let person = matchData[i];
         
         let personEmail = person.email;
         let personName = person.first_name;
