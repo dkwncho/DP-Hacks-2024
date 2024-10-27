@@ -18,7 +18,7 @@ export default function CreateAccount() {
   const [instagram, setInstagram] = useState("");
   const [number, setNumber] = useState("");
   const [advicePreference, setAdvicePreference] = useState(null);
-  const [intersts, setInterests] = useState(null);
+  const [interests, setInterests] = useState(null);
   const [career, setCareer] = useState(null);
   const [password, setPassword] = useState(null);
 
@@ -32,8 +32,7 @@ export default function CreateAccount() {
   const previous = () => {
     sliderRef.slickPrev();
   };
-  
-
+    
   const makeAccount = () => {
     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
       // Signed in 
@@ -45,7 +44,7 @@ export default function CreateAccount() {
         year: year,
         email: email,
         advicePreference: advicePreference,
-        interests: intersts,
+        interests: interests,
         career: career
       });
 
@@ -64,16 +63,16 @@ export default function CreateAccount() {
 
 
       axios
-        .post("https://pennpals-api.vercel.app/api/users", {
+        .post("http://127.0.0.1:5000/api/users", {
           first_name: name,
           last_name: name,
           major: major,
           email: name,
           grade: year,
-          description: intersts,
+          description: interests,
           receive_advice: JSON.stringify(advicePreference === "get"),
           give_advice: JSON.stringify(advicePreference === "give")
-        }).then((response) => {
+        },config).then((response) => {
           console.log(response.data)
         })
       
@@ -142,7 +141,7 @@ export default function CreateAccount() {
                 value={major}
               />
               <button
-                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
+                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (interests ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
                 type="submit"
               >
                 Next
@@ -221,10 +220,10 @@ export default function CreateAccount() {
                   width: "100%"
                 }}
                 onChange={(e) => setInterests(e.target.value)}
-                value={intersts}
+                value={interests}
               />
               <button
-                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (intersts ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
+                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (interests ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
                 type="submit"
               >
                 Next
