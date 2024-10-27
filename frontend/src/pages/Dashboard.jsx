@@ -242,12 +242,6 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Link
-              to="/ask-question"
-              className="bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-indigo-700 transition-colors inline-block"
-            >
-              Ask a New Question
-            </Link>
           </motion.div>
         </main>
       </div>

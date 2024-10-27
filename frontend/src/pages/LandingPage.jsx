@@ -66,7 +66,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 z-0">
               <img
                 src={heroImage}
-                alt="UPenn Campus"
+                alt="Penn Campus"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -107,7 +107,7 @@ export default function LandingPage() {
               </h3>
               <p className="text-xl text-center max-w-3xl mx-auto">
                 PennPals is a platform designed to connect University of
-                Pennsylvania students with peers and alumni for advice,
+                Pennsylvania students with peers for advice,
                 mentorship, and support. Whether you're looking for academic
                 guidance, career insights, or just someone to talk to, PennPals is
                 here to help you navigate your journey at Penn.
@@ -137,7 +137,7 @@ export default function LandingPage() {
                   {
                     title: "Diverse Support Network",
                     description:
-                      "Connect with upperclassmen and alumni for academic, social, and general life advice at UPenn.",
+                      "Connect with upperclassmen for academic, social, and general life advice at Penn.",
                     icon: "🌐",
                   },
                 ].map((feature, index) => (
@@ -171,10 +171,10 @@ export default function LandingPage() {
               >
                 <h3 className="text-4xl font-bold mb-6">Join PennPals Today</h3>
                 <p className="text-xl mb-10 max-w-2xl mx-auto">
-                  Start your journey towards success at UPenn with the support of
+                  Start your journey towards success at Penn with the support of
                   experienced peers.
                 </p>
-                <Link to="/signup">
+                <Link to="/create-account">
                   <motion.button
                     className="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors"
                     whileHover={{ scale: 1.05 }}
