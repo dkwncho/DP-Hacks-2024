@@ -30,7 +30,7 @@ export default function LandingPage() {
                 {[
                   { name: "About", href: "#about" },
                   { name: "Features", href: "#features" },
-                  { name: "Sign Up", href: "/signup" },
+                  { name: "Sign Up", href: "/create-account" },
                   { name: "Login", href: "/login" },
                 ].map((item, index) => (
                   <motion.li
