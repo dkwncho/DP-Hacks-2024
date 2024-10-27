@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { auth, db } from '../firebase';
@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export default function AskQuestion() {
     const [question, setQuestion] = useState("");
-
+    const [isMatchReady, setIsMatchReady] = useState(false);
     const [userid, setid] = useState();
 
     if (!userid)
@@ -25,15 +25,14 @@ export default function AskQuestion() {
                     'Content-Type': 'application/json',
                 }
             });
-        
-            console.log('Response from server:', response.data);
-        
+            localStorage.setItem('matchData', JSON.stringify(response.data));
+
             update(ref(db, `users/${userid}/`), {
                 question: question
             });
-        
-            // window.location.href = "/dashboard";
-        
+
+            window.location.href = "/get-matches";
+                
         } catch (error) {
             console.error('Error submitting question:', error);
         }

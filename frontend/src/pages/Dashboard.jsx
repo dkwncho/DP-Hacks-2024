@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
 import { db, auth } from "../firebase";
 import { ref, child, get } from "firebase/database";
 
@@ -26,7 +25,6 @@ export default function Dashboard() {
       setCurrentQuestion(stuff?.question);
       setMatch(stuff?.match);
       setAdviceType(stuff?.advicePreference)
-
 
       console.log(snapshot.val());
     } else {
@@ -237,6 +235,19 @@ export default function Dashboard() {
                 </tbody>
               </table>
             </div>
+          </motion.div>
+          <motion.div
+            className="mt-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <Link
+              to="/ask-question"
+              className="bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-indigo-700 transition-colors inline-block"
+            >
+              Ask a New Question
+            </Link>
           </motion.div>
         </main>
       </div>

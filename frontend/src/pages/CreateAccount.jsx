@@ -50,23 +50,23 @@ export default function CreateAccount() {
         career: career
       });
 
+      const response = axios
+        .post("http://127.0.0.1:5000/api/users", {
+          first_name: name,
+          last_name: name,
+          major: major,
+          email: name,
+          grade: year,
+          description: interests,
+          receive_advice: JSON.stringify(advicePreference === "get"),
+          give_advice: JSON.stringify(advicePreference === "give")
+        }).then((response) => {
+          console.log(response.data)
+        }).catch((error) => {console.log(error.response.data)})
+
       signInWithEmailAndPassword(auth, email, password).then((response) => {
         window.location.href = '/dashboard';
       })
-
-      // const response = axios
-      //   .post("http://127.0.0.1:5000/api/users", {
-      //     first_name: name,
-      //     last_name: name,
-      //     major: major,
-      //     email: name,
-      //     grade: year,
-      //     description: interests,
-      //     receive_advice: JSON.stringify(advicePreference === "get"),
-      //     give_advice: JSON.stringify(advicePreference === "give")
-      //   }).then((response) => {
-      //     console.log(response.data)
-      //   }).catch((error) => {console.log(error.response.data)})
     })
   }
 
