@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { initializeApp } from "firebase/app";
 
 import LandingPage from "./pages/LandingPage";
 import CreateAccount from "./pages/CreateAccount";
