@@ -4,7 +4,7 @@ import rapidjson
 from flask import Flask, request, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
-from model import generate_top_matches
+from tf_idf import generate_top_matches
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -128,8 +128,9 @@ def match_question_to_description(): # Frontend interacts with this api by posti
     descriptions = []
     original_indices = []
     for index, user in enumerate(user_list):
-        descriptions.append(user["description"])
-        original_indices.append(index)
+        if user["give_advice"]:
+            descriptions.append(user["description"])
+            original_indices.append(index)
     
     top_matches_indices = generate_top_matches(question, descriptions)
     top_matches = []
