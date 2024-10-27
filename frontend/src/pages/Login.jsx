@@ -23,8 +23,57 @@ export default function Login() {
 
     return (
         <>
-        <div className="flex flex-col justify-center align-center w-full h-[85vh]">
+<header className="sticky top-0 z-50 bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <motion.h1
+              className="text-3xl font-bold text-indigo-600"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              onClick={() => window.location.path = "/"}
+            >
+              PennPals
+            </motion.h1>
+            <nav>
+              <ul className="flex space-x-6">
+                {[
+                  { name: "About", href: "#about" },
+                  { name: "Features", href: "#features" },
+                  { name: "Sign Up", href: "/signup" },
+                  { name: "Login", href: "/login" },
+                ].map((item, index) => (
+                  <motion.li
+                    key={item.name}
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    {item.href.startsWith("#") ? (
+                      <a
+                        href={item.href}
+                        className="text-gray-600 hover:text-indigo-600 transition-colors"
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        className="text-gray-600 hover:text-indigo-600 transition-colors"
+                      >
+                        {item.name}
+                      </Link>
+                    )}
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+        <div className="flex flex-col justify-center align-center w-full h-[80vh]">
+        
         <form onSubmit={(e) => { if (email && password) handleLogin(e) }} className="flex items-center gap-5 w-full flex-col">
+        <p className="text-3xl font-semibold">Welcome back!</p>
               <input
                 placeholder="Email"
                 // autoFocus

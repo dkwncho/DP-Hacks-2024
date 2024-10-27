@@ -4,9 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CiMail } from "react-icons/ci";
 import { db, auth, } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { ref, set, update } from "firebase/database";
 import axios from "axios";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function CreateAccount() {
   const INFO = ["name", "contact", "major", "year", "advicePreference", "interests", "career", "advice"]
@@ -48,24 +50,23 @@ export default function CreateAccount() {
         career: career
       });
 
-      const response = axios
-        .post("http://127.0.0.1:5000/api/users", {
-          first_name: name,
-          last_name: name,
-          major: major,
-          email: name,
-          grade: year,
-          description: interests,
-          receive_advice: JSON.stringify(advicePreference === "get"),
-          give_advice: JSON.stringify(advicePreference === "give")
-        }).then((response) => {
-          console.log(response.data)
-        }).catch((error) => {console.log(error.response.data)})
+      signInWithEmailAndPassword(auth, email, password).then((response) => {
+        window.location.href = '/dashboard';
+      })
 
-      
-
-
-      // window.location.href = '/dashboard';
+      // const response = axios
+      //   .post("http://127.0.0.1:5000/api/users", {
+      //     first_name: name,
+      //     last_name: name,
+      //     major: major,
+      //     email: name,
+      //     grade: year,
+      //     description: interests,
+      //     receive_advice: JSON.stringify(advicePreference === "get"),
+      //     give_advice: JSON.stringify(advicePreference === "give")
+      //   }).then((response) => {
+      //     console.log(response.data)
+      //   }).catch((error) => {console.log(error.response.data)})
     })
   }
 
@@ -79,11 +80,24 @@ export default function CreateAccount() {
   };
   return (
     <div class="overflow-hidden">
+      <header className="sticky top-0 z-50 bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <motion.h1
+              className="text-3xl font-bold text-indigo-600"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              onClick={() => window.location.path = "/"}
+            >
+              PennPals
+            </motion.h1>
+          </div>
+        </header>
       <Slider {...settings} ref={slider => {
         sliderRef = slider;
       }}>
         <div>
-          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto gap-7">
+          <div className="flex flex-col justify-center h-[75vh] items-center w-6/12 m-auto gap-7">
             <p className="self-start text-xl">What's your name?</p>
             <form onSubmit={(e) => { if (name) next(e) }} className="flex items-center gap-5 w-full">
               <input
@@ -110,8 +124,8 @@ export default function CreateAccount() {
           </div>
         </div>
         <div>
-          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto gap-7">
-            <p className="self-start text-xl">Major(s)?</p>
+        <div className="flex flex-col justify-center h-[75vh] items-center w-6/12 m-auto gap-7">
+        <p className="self-start text-xl">Major(s)?</p>
             <form onSubmit={(e) => { if (major) next(e) }} className="flex items-center gap-5 w-full">
               <input
                 placeholder="Major(s)"
@@ -128,7 +142,7 @@ export default function CreateAccount() {
                 value={major}
               />
               <button
-                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (interests ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
+                class={"mt-5 text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 " + (major ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
                 type="submit"
               >
                 Next
@@ -137,7 +151,7 @@ export default function CreateAccount() {
           </div>
         </div>
         <div>
-          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto gap-7">
+          <div className="flex flex-col justify-center h-[75vh] items-center w-6/12 m-auto gap-7">
             <p className="self-start text-xl ">What year are you?</p>
             <div className="flex items-center gap-5 w-full ">
               <div className="gap-5 flex items-center w-full">
@@ -188,9 +202,9 @@ export default function CreateAccount() {
           </div>
         </div>
         <div>
-          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto gap-7">
-            <p className="self-start text-xl">Describe yourself in a few sentences! (What are your hobbies? Career goals?)</p>
-            <form onSubmit={(e) => { next(e) }} className="flex flex-col items-center gap-5 w-full">
+        <div className="flex flex-col justify-center h-[75vh] items-center w-6/12 m-auto gap-7">
+        <p className="self-start text-xl">Describe yourself in a few sentences! (What are your hobbies? Career goals?)</p>
+            <form onSubmit={(e) => { if (interests) next(e) }} className="flex flex-col items-center gap-5 w-full">
               <textarea
                 placeholder="In my free time, I enjoy hanging out and eating. I want to work at Morgan Stanley and because the best trader ever!"
                 type="textarea"
@@ -219,8 +233,8 @@ export default function CreateAccount() {
           </div>
         </div>
         <div>
-          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto gap-7">
-            <p className="self-start text-xl">How can people contact you?</p>
+        <div className="flex flex-col justify-center h-[75vh] items-center w-6/12 m-auto gap-7">
+        <p className="self-start text-xl">How can people contact you?</p>
             <form onSubmit={(e) => { if (email) next(e) }} className="items-center gap-5 w-full">
               <div className="flex flex-col gap-5 w-full">
                 <div className="flex gap-5 items-center">
@@ -251,9 +265,9 @@ export default function CreateAccount() {
           </div>
         </div>
         <div>
-          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto gap-7">
-            <p className="self-start text-xl">We'll use <b>{email}</b> as your log in. Please set a password:</p>
-            <form onSubmit={(e) => { if (major) next(e) }} className="flex items-center gap-5 w-full">
+        <div className="flex flex-col justify-center h-[75vh] items-center w-6/12 m-auto gap-7">
+        <p className="self-start text-xl">We'll use <b>{email}</b> as your log in. Please set a password:</p>
+            <form onSubmit={(e) => { if (password?.length > 5) next(e) }} className="flex items-center gap-5 w-full">
               <input
                 placeholder="Password"
                 type="password"
@@ -279,8 +293,8 @@ export default function CreateAccount() {
         </div>
 
         <div>
-          <div className="flex flex-col justify-center h-[85vh] items-center w-6/12 m-auto">
-            <div className="text-[3em] font-bold">All done!</div>
+        <div className="flex flex-col justify-center h-[75vh] items-center w-6/12 m-auto gap-7">
+        <div className="text-[3em] font-bold">All done!</div>
             <div className="text-[1.5em] mt-3">Your PennPals journey begins now...</div>
             <button
               class={"mt-[3rem] text-white px-8 py-[10px] w-[10vw] min-w-[100px] rounded-xl duration-200 text-center flex justify-center items-center " + (true ? "bg-purple-600 hover:bg-purple-700 " : "bg-purple-300 ")}
