@@ -34,7 +34,7 @@ export default function CreateAccount() {
   };
     
   const makeAccount = () => {
-    createUserWithEmailAndPassword(auth, Math.floor(100000 + Math.random() * 900000) + "@gmail.com", password).then((userCredential) => {
+    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
       // Signed in 
       const user = userCredential.user.uid;
 

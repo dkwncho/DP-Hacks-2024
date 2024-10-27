@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { set, ref, update } from 'firebase/database';
+import axios from 'axios';
 
 export default function AskQuestion() {
     const [question, setQuestion] = useState("");
@@ -14,14 +15,29 @@ export default function AskQuestion() {
         setid(user.uid);
         })
 
-    function handleSubmit() {
+    async function handleSubmit() {
 
-        update(ref(db, `users/${userid}/`), {
-            question: question
-          });
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/api/questions', {
+                question: question
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+        
+            console.log('Response from server:', response.data);
+        
+            update(ref(db, `users/${userid}/`), {
+                question: question
+            });
+        
+            // window.location.href = "/dashboard";
+        
+        } catch (error) {
+            console.error('Error submitting question:', error);
+        }
 
-
-        window.location.href = "/dashboard";
     }
 
     return (

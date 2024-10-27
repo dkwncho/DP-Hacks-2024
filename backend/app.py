@@ -18,7 +18,6 @@ INSERT_USER_USERS = (
 
 app = Flask(__name__)
 
-# CORS(app,origins=["https://pennpals.vercel.app","https://pennpals-api.vercel.app/"])
 CORS(app)
 
 
@@ -28,7 +27,6 @@ def connect_to_db():
 
 @app.route("/api/users", methods=["POST"])
 def add_user_data():
-    print("I GOT HERE")
     connection = connect_to_db()
     data = request.get_json()
 
@@ -102,7 +100,7 @@ def get_user_by_id(user_id):
     else:
         return Response("User not found", status=404)
 
-@app.route("/api/questions", methods=["GET"])
+@app.route("/api/questions", methods=["POST"])
 def match_question_to_description(): # Frontend interacts with this api by posting a question as a JSON and receives the users with the three most similar descriptions
     connection = connect_to_db()
     data = request.get_json()
