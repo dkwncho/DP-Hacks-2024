@@ -6,6 +6,7 @@ import CreateAccount from "./pages/CreateAccount";
 import AskQuestion from "./pages/AskQuestion";
 import GetMatches from "./pages/GetMatches";
 import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/ask-question" element={<AskQuestion />} />
         <Route path="/get-matches" element={<GetMatches />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
