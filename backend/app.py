@@ -17,7 +17,7 @@ INSERT_USER_USERS = (
 )
 
 app = Flask(__name__)
-CORS(app) 
+# CORS(app) 
 # CORS(app,origins=["https://pennpals.vercel.app","https://pennpals-api.vercel.app/","http://localhost:3001"])
 
 def connect_to_db():
