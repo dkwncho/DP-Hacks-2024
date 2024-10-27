@@ -17,7 +17,10 @@ INSERT_USER_USERS = (
 )
 
 app = Flask(__name__)
-CORS(app) 
+
+# CORS(app,origins=["https://pennpals.vercel.app","https://pennpals-api.vercel.app/"])
+CORS(app)
+
 
 def connect_to_db():
     connection = psycopg2.connect(DATABASE_URL)
@@ -25,6 +28,7 @@ def connect_to_db():
 
 @app.route("/api/users", methods=["POST"])
 def add_user_data():
+    print("I GOT HERE")
     connection = connect_to_db()
     data = request.get_json()
 
@@ -43,6 +47,7 @@ def add_user_data():
             cursor.execute(INSERT_USER_USERS, (first_name, last_name, email, major, grade, receive_advice, give_advice, description))
     cursor.close()
     connection.close()
+    
     return Response("User added successfully", status=200)
 
 @app.route("/api/users", methods=["GET"])

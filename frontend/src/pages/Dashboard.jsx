@@ -31,7 +31,7 @@ export default function Dashboard() {
       console.log("No data available");
     }
   }).catch((error) => {
-    console.error(error);
+    console.error(error?.response?.data);
   });
 
   let userData = {
@@ -125,7 +125,19 @@ export default function Dashboard() {
             </div>
 
             : <div>
-              
+                          <div className="grid grid-cols-1 gap-8">
+              <motion.div
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow flex flex-col justify-center items-center gap-3 p-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <h3 className="text-2xl font-semibold text-indigo-600">
+                  You don't have an active question.
+                </h3>
+                <Link className="text-xl underline text-purple-700 hover:text-purple-900" to="/ask-question" >Ask one now!</Link>
+              </motion.div>
+              </div>
             </div>
           }
 

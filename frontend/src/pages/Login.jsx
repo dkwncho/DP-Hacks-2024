@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { auth } from '../firebase'
 
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default function Login() {
@@ -19,6 +22,7 @@ export default function Login() {
     }
 
     return (
+        <>
         <div className="flex flex-col justify-center align-center w-full h-[85vh]">
         <form onSubmit={(e) => { if (email && password) handleLogin(e) }} className="flex items-center gap-5 w-full flex-col">
               <input
@@ -60,5 +64,6 @@ export default function Login() {
               </button>
             </form>
         </div>
+        </>
     )
 }
