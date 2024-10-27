@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { db, auth } from "../firebase";
 import { ref, child, get } from "firebase/database";
+import { FaCheck } from "react-icons/fa";
 
 export default function Dashboard() {
   // this is just placeholder data, will make it so it grabs the user's actual data
@@ -91,7 +92,7 @@ export default function Dashboard() {
 
           {
             adviceType === "get" ?
-              currentQuestion
+              !currentQuestion
                 ? <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <motion.div
                     className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
@@ -99,9 +100,14 @@ export default function Dashboard() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                   >
-                    <h3 className="text-2xl font-semibold mb-4 text-indigo-600">
-                      Current Question
-                    </h3>
+                    <div className="flex flex-row align-center justify-between">
+                      <h3 className="text-2xl font-semibold mb-4 text-indigo-600">
+                        Current Question
+                      </h3>
+                      <div className="border-indigo-600 border rounded-lg flex justify-center items-center duration-200 hover:bg-indigo-100" onClick={() => window.location.href = "/ask-question"}>
+                        <FaCheck color="rgb(79, 70, 229)" className="mx-4 my-3" />
+                      </div>
+                    </div>
                     <p className="text-gray-700">{currentQuestion}</p>
                   </motion.div>
 
