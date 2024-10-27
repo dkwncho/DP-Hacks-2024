@@ -6,44 +6,8 @@ import axios from 'axios';
 
 
 export default function GetMatches() {
-    const { matchaData } = useMatch();
     const matchData = JSON.parse(localStorage.getItem('matchData'));
-    console.log(matchData);
-    const data = [
-        {
-            "id": 3,
-            "first_name": "Upperclassman",
-            "last_name": "2",
-            "email": "upperclassman@seas.upenn.edu",
-            "major": "Computer Science",
-            "grade": "Senior",
-            "receive_advice": false,
-            "give_advice": true,
-            "description": "I will get you a referral"
-        },
-        {
-            "id": 5,
-            "first_name": "Upperclassman",
-            "last_name": "4",
-            "email": "upperclassman@seas.upenn.edu",
-            "major": "Computer Science",
-            "grade": "Senior",
-            "receive_advice": false,
-            "give_advice": true,
-            "description": "I don't dislike computer science that much"
-        },
-        {
-            "id": 2,
-            "first_name": "Upperclassman",
-            "last_name": "1",
-            "email": "upperclassman@seas.upenn.edu",
-            "major": "Computer Science",
-            "grade": "Senior",
-            "receive_advice": false,
-            "give_advice": true,
-            "description": "I have a return offer at Citadel"
-        }
-    ]
+
 
     const [userid, setid] = useState();
 
