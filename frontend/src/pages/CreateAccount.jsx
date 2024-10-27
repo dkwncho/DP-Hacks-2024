@@ -34,7 +34,7 @@ export default function CreateAccount() {
   };
     
   const makeAccount = () => {
-    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+    createUserWithEmailAndPassword(auth, Math.floor(100000 + Math.random() * 900000) + "@gmail.com", password).then((userCredential) => {
       // Signed in 
       const user = userCredential.user.uid;
 
@@ -48,21 +48,7 @@ export default function CreateAccount() {
         career: career
       });
 
-      
-      // first_name = data["first_name"]
-      // last_name = data["last_name"]
-      // email = data["email"]
-      // major = data["major"]
-      // grade = data["grade"]
-      // personal_interests = data["personal_interests"]
-      // career_interests = data["career_interests"]
-      // advice_types = rapidjson.dumps(data["advice_types"])
-      // receive_advice = data["receive_advice"]
-      // give_advice = data["give_advice"]
-      // description = data["description"]
-
-
-      axios
+      const response = axios
         .post("http://127.0.0.1:5000/api/users", {
           first_name: name,
           last_name: name,
@@ -72,9 +58,10 @@ export default function CreateAccount() {
           description: interests,
           receive_advice: JSON.stringify(advicePreference === "get"),
           give_advice: JSON.stringify(advicePreference === "give")
-        },config).then((response) => {
+        }).then((response) => {
           console.log(response.data)
-        })
+        }).catch((error) => {console.log(error.response.data)})
+
       
 
 
