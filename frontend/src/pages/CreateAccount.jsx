@@ -55,7 +55,7 @@ export default function CreateAccount() {
           first_name: name,
           last_name: name,
           major: major,
-          email: email,
+          email: name,
           grade: year,
           description: interests,
           receive_advice: JSON.stringify(advicePreference === "get"),
