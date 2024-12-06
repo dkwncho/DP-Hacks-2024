@@ -4,6 +4,7 @@ import rapidjson
 from flask import Flask, request, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
@@ -11,10 +12,11 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 CREATE_USERS_TABLE = (
     "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, major TEXT, grade TEXT, receive_advice BOOLEAN DEFAULT FALSE, give_advice BOOLEAN DEFAULT FALSE, description TEXT);"
 )
-
 INSERT_USER_USERS = (
     "INSERT INTO users (first_name, last_name, email, major, grade, receive_advice, give_advice,description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
 )
+API_URL = os.getenv("API_URL")
+headers = os.getenv("headers")
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -99,6 +101,11 @@ def get_user_by_id(user_id):
         })
     else:
         return Response("User not found", status=404)
+
+@app.route("/api/questions", methods=["POST"])
+def query(payload):
+	response = requests.post(API_URL, headers=headers, json=payload)
+	return response.json()
 
 if __name__ == "__main__":
     app.run()
