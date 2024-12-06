@@ -26,8 +26,6 @@ safetensors==0.4.5
 scipy==1.14.1
 sympy==1.13.1
 threadpoolctl==3.5.0
-tokenizers==0.20.1
-torch==2.5.0
 tqdm==4.66.5
 typing_extensions==4.12.2
 urllib3==2.2.3
