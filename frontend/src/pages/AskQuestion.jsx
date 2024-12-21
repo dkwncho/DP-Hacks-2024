@@ -7,7 +7,6 @@ import axios from 'axios';
 
 export default function AskQuestion() {
     const [question, setQuestion] = useState("");
-    const [isMatchReady, setIsMatchReady] = useState(false);
     const [userid, setid] = useState();
 
     if (!userid)
