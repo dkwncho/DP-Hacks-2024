@@ -18,7 +18,7 @@ export default function AskQuestion() {
     async function handleSubmit() {
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/api/questions', {
+            const response = await axios.post('https://samuellao.pythonanywhere.com/api/questions', {
                 question: question
             }, {
                 headers: {

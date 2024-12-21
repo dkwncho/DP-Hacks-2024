@@ -51,7 +51,7 @@ export default function CreateAccount() {
       });
 
       const response = axios
-        .post("http://127.0.0.1:5000/api/users", {
+        .post("https://samuellao.pythonanywhere.com/api/users", {
           first_name: name,
           last_name: name,
           major: major,

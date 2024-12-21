@@ -2,6 +2,7 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 import requests
 
+
 def generate_top_matches(question, descriptions):
     model = SentenceTransformer('all-MiniLM-L6-v2')
 
