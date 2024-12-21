@@ -4,7 +4,7 @@ import rapidjson
 from flask import Flask, request, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
-from model import generate_top_matches
+import requests
 
 load_dotenv()
 
@@ -12,10 +12,11 @@ DATABASE_URL = "postgresql://neondb_owner:yoQscai9O4Tg@ep-orange-frog-a56nf1uu.u
 CREATE_USERS_TABLE = (
     "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, major TEXT, grade TEXT, receive_advice BOOLEAN DEFAULT FALSE, give_advice BOOLEAN DEFAULT FALSE, description TEXT);"
 )
-
 INSERT_USER_USERS = (
     "INSERT INTO users (first_name, last_name, email, major, grade, receive_advice, give_advice,description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
 )
+API_URL = os.getenv("API_URL")
+headers = os.getenv("headers")
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -102,46 +103,9 @@ def get_user_by_id(user_id):
         return Response("User not found", status=404)
 
 @app.route("/api/questions", methods=["POST"])
-def match_question_to_description(): # Frontend interacts with this api by posting a question as a JSON and receives the users with the three most similar descriptions
-    connection = connect_to_db()
-    data = request.get_json()
-    question = data["question"] 
-
-    with connection:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users")
-            rows = cursor.fetchall()
-    connection.close()
-    cursor.close()
-
-    user_list = []
-    for row in rows:
-        user_list.append({
-            "id": row[0],
-            "first_name": row[1],
-            "last_name": row[2],
-            "email": row[3],
-            "major": row[4],
-            "grade": row[5],
-            "receive_advice": row[6],
-            "give_advice": row[7],
-            "description": row[8]
-        })
-    
-    descriptions = []
-    original_indices = []
-    for index, user in enumerate(user_list):
-        if user["give_advice"]:
-            descriptions.append(user["description"])
-            original_indices.append(index)
-    
-    top_matches_indices = generate_top_matches(question, descriptions)
-    top_matches = []
-
-    for i in top_matches_indices:
-        top_matches.append(user_list[original_indices[i]])
-
-    return rapidjson.dumps(top_matches)
+def query(payload):
+	response = requests.post(API_URL, headers=headers, json=payload)
+	return response.json()
 
 if __name__ == "__main__":
     app.run()

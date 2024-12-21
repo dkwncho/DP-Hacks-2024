@@ -14,6 +14,6 @@ def generate_top_matches(question, descriptions):
     similarities_tensor = model.similarity(question_embeddings, description_embeddings)
     similarities_list = similarities_tensor.tolist()[0]
 
-    top_matches_indices = np.argsort(similarities_list)[-3:][::-1]
+    top_matches_indices = np.argsort(similarities_list)[:3][::-1]
 
     return top_matches_indices

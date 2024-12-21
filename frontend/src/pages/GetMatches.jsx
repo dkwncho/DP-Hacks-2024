@@ -18,6 +18,7 @@ export default function GetMatches() {
 
     function choosePerson(i) {
         let person = matchData[i];
+        
         let personEmail = person.email;
         let personName = person.first_name;
 
@@ -49,7 +50,6 @@ export default function GetMatches() {
           }).catch((error) => {
             console.error(error?.response?.data);
           });
-
         
     }
 
